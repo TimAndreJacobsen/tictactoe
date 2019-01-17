@@ -12,6 +12,9 @@ class Board extends React.Component {
 
     handleClick(i) {
         const squares = this.state.squares.slice(); // slice returns a copy of original squares array
+        if (calculateWinner(squares) || squares[i]){
+            return;
+        }
         squares[i] = this.state.xIsNext ? 'X' : 'O'; // change the state of [i](clicked square) X or O dependant on bool flag status
         this.setState({
             squares: squares, // write state to board.squares
