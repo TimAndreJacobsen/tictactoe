@@ -9,6 +9,12 @@ class Board extends React.Component {
         }
     }
 
+    handleClick(i) {
+        const squares = this.state.squares.slice(); // slice returns a copy of original squares array
+        squares[i] = 'X'; // change the state of [i](clicked square)
+        this.setState({squares: squares}); // write state to board.squares
+    }
+
     renderSquare(i) {
         return (
             <Square 
