@@ -15,14 +15,19 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            squares: Array(9).fill(null)
+            squares: Array(9).fill(null),
+            xIsNext: true,
         }
     }
 
     handleClick(i) {
         const squares = this.state.squares.slice(); // slice returns a copy of original squares array
-        squares[i] = 'X'; // change the state of [i](clicked square)
-        this.setState({squares: squares}); // write state to board.squares
+        squares[i] = this.state.xIsNext ? 'X' : 'O'; // change the state of [i](clicked square) X or O dependant on bool flag status
+        this.setState({
+            squares: squares, // write state to board.squares
+            xIsNext: !this.state.xIsNext, // flips the flag
+        }); 
+        
     }
 
     renderSquare(i) {
