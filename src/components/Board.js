@@ -1,24 +1,16 @@
 import React from 'react';
 
-
 class Board extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            squares: Array(9).fill(null),
-            xIsNext: true,
-        }
-    }
 
     handleClick(i) {
-        const squares = this.state.squares.slice(); // slice returns a copy of original squares array
+        const squares = this.props.squares.slice(); // slice returns a copy of original squares array
         if (calculateWinner(squares) || squares[i]){
             return;
         }
-        squares[i] = this.state.xIsNext ? 'X' : 'O'; // change the state of [i](clicked square) X or O dependant on bool flag status
+        squares[i] = this.props.xIsNext ? 'X' : 'O'; // change the state of [i](clicked square) X or O dependant on bool flag status
         this.setState({
             squares: squares, // write state to board.squares
-            xIsNext: !this.state.xIsNext, // flips the flag
+            xIsNext: !this.props.xIsNext, // flips the flag
         }); 
         
     }
@@ -26,24 +18,15 @@ class Board extends React.Component {
     renderSquare(i) {
         return (
             <Square 
-                value={this.state.squares[i]} 
-                onClick = { ()=>this.handleClick(i)  }
+                value={this.props.squares[i]} 
+                onClick = { ()=>this.props.onClick(i)  }
             />
         );
     }
 
     render() {
-        const winner = calculateWinner(this.state.squares);
-        let status;
-        if (winner) {
-            status = 'Winner: ' + winner;
-        } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-        }
-
         return (
         <div>
-            <div className="status">{status}</div>
             <div className="board-row">
             {this.renderSquare(0)}
             {this.renderSquare(1)}
@@ -95,4 +78,4 @@ function calculateWinner(squares) {
     return null;
   }
 
-  export default Board;
+export default Board;
